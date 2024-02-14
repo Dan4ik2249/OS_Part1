@@ -1,0 +1,15 @@
+#!/bin/bash
+
+for (( i = 1; i < $1; i++ ))
+do
+	rm inp.txt
+	base64 /dev/urandom | head -c 1000 > inp.txt
+	./main 123 inp.txt out.txt
+	python3 RC4.py 123 out.txt out1.txt
+	if cmp -s inp.txt out1.txt 
+	then
+       		echo "True"
+	else
+       		echo "False"
+	fi
+done
